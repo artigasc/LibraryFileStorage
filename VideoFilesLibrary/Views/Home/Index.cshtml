@@ -1,0 +1,244 @@
+﻿@model List<VideoFilesLibrary.Models.FileViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- Loader -->
+<div id="load" class="d-none">
+    <div style="display: block;width: 100%;position: absolute;top: 50%;transform: translateY(-50%);">
+        <div class="loader"></div>
+    </div>
+</div>
+<!-- end Loader -->
+@Html.Partial("_Navbar")
+
+<div style="margin-top: 105.5px;" class="container-fluid justify-content-center">
+    <div class="container">
+        <!-- Title -->
+        <h4 class="py-3">Lista de archivos</h4>
+        <!-- end title -->
+        <!-- Views mode -->
+        <div id="DivList">
+            @{
+                await Html.RenderPartialAsync("_Mode", Model);
+
+            }
+        </div>
+        <!-- end View mode -->
+
+
+
+    </div>
+</div>
+
+
+<!-- Modal Video -->
+<div id="ModalVideo"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="Modal video"
+     aria-hidden="true"
+     class="modal fade">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5>Video</h5>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<div class="input-group mb-3">
+            <div class="custom-file">
+                <input class="custom-file-input" type="file" id="VideoId" name="video" accept="video/*">
+                <label class="text-left custom-file-label" for="video">Selecciona un video</label>
+            </div>
+        </div>*@
+                <input type="file" id="uploadFile" name="file" />
+
+                @*<input class="form-control my-2" type="text" placeholder="Ingrese video" />*@
+                <button id="btnUpload" type="button" onclick="UploadFile()" class="btn btn-bluedark btn-block">Subir</button>
+                <div class="progress mt-2 ">
+                    <div id="ProgressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Folder -->
+<div id="ModalFolder" class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="Modal Carpeta"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5>Carpeta</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"> &times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="form-group">
+                        <input id="NameFolder" class="form-control" type="text" placeholder="Escribe un nombre a la carpeta" autofocus />
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-bluedark" type="button" onclick="CreateFolder()">Crear</button>
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+
+    function UploadFileChunk(Chunk, FileName) {
+        return new Promise(async function (resolve, reject) { 
+            var FD = new FormData();
+            FD.append('valFile', Chunk, FileName);
+            console.log("ajax");
+            await $.ajax({
+                type: "POST",
+                url: '/Home/UploadFile',
+                contentType: false,
+                processData: false,
+                async: true,
+                data: FD,
+                success: function (response) {
+                    console.log(response);
+                    resolve(true);
+                    return;
+                },
+                error: function (xhr) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    reject("Error");
+                    return;
+                }
+            });
+            console.log("fuera ajax");
+            resolve(true);
+        });
+    }
+
+    function UploadFile() {
+        return new Promise(async function (resolve, reject) { 
+
+            $("#load").removeClass("d-none");
+            
+            var TargetFile = $('#uploadFile')[0].files
+            var FileChunk = [];
+            var file = TargetFile[0];
+            var MaxFileSizeMB = 1;
+            //var BufferChunkSize = MaxFileSizeMB * (1024 * 1024
+            var BufferChunkSize = 104857600;
+            var ReadBuffer_Size = 1024;
+            var FileStreamPos = 0;
+            var EndPos = BufferChunkSize;
+            var Size = file.size;
+
+
+            while (FileStreamPos < Size) {
+                FileChunk.push(file.slice(FileStreamPos, EndPos));
+                FileStreamPos = EndPos; 
+                EndPos = FileStreamPos + BufferChunkSize; 
+            }
+    
+            var TotalParts = FileChunk.length;
+            var FactorProgressBar = 100 / TotalParts;
+            var PartCount = 0;
+            while (chunk = FileChunk.shift()) {
+             
+                PartCount++;
+                var FilePartName = file.name + ".part_" + PartCount + "." + TotalParts;
+                console.log(chunk);
+                console.log(FilePartName);
+                $("#ProgressBar").attr("aria-valuenow", FactorProgressBar);
+                $("#ProgressBar").attr("aria-valuemin", 0);
+                $("#ProgressBar").css("width", FactorProgressBar+"%");
+                await UploadFileChunk(chunk, FilePartName);
+                FactorProgressBar +=FactorProgressBar;
+            }
+            resolve(true);
+            $("#load").addClass("d-none");
+            alert("Archivo subido Correctamente");
+            location.reload();
+        });
+        //alert("Archivo subido Correctamente");
+    }
+
+    function EndSession() {
+        $.ajax({
+            url: "/Account/Logout",
+            method: "POST",
+            success: function (response) {
+                alert("Sessión Finalizada");
+               window.location.href = '@Url.Action("Login", "Home")';
+            }
+        })
+
+    }
+
+    function CreateFolder() {
+        return new Promise(async function (resolve, reject) {
+            var vFolderName = $("#NameFolder").val().trim();
+            var data= {
+                valNameFolder:vFolderName
+            }
+            console.log(data);
+            await $.ajax({
+                type: "POST",
+                url: '/Home/CreateFolderinContainer',
+                dataType: 'json',
+                async: true,
+                data: data,
+                success: function (response) {
+                    $("#ModalFolder").modal('hide');
+                    if (response.content == "True") {
+                        alert("Carpeta '" + response.message + "' creada correctamente");
+                        location.reload();
+                        resolve(true);
+                        return;
+                    }
+                    alert("Se ha generado un error '" + response.message+"'");
+                    reject("Error");
+                    return;
+                },
+                beforeSend: function () {
+                   $("#load").removeClass("d-none");
+                  
+                },
+                complete: function () {
+
+                    $("#load").addClass("d-none");
+
+                },
+                error: function (xhr) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                    reject("Error");
+                    return;
+                }
+            });
+            
+            resolve(true);
+        });
+        }
+
+    function DownloadFiles() {
+        var vJsonFiles = JSON.parse($('#DataFiles').val());
+        console.log(vJsonFiles);
+        for (var key in vJsonFiles) {
+            var vItem = vJsonFiles[key];
+            var link = document.createElement("a");
+            link.href = vItem.url;
+            link.target = "_blank";
+            link.download = "file";
+            link.click();
+             //document.getElementById('download_iframe').src = vItem.url;
+        }
+    }
+</script>

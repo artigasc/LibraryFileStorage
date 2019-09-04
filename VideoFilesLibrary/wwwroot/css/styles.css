@@ -1,0 +1,382 @@
+/* customizable bootstrap v4 */
+.bg-bluelight {
+  background-color: #2F4264;
+}
+
+.bg-bluedark {
+  background-color: #1a2435;
+}
+
+.bg--gradient--purple {
+  background: #242877;
+  background: -moz-linear-gradient(to top, #242877, #2b308f, #3239a9, #3a41c3, #424ADD);
+  background: -webkit-linear-gradient(to top, #242877, #2b308f, #3239a9, #3a41c3, #424ADD);
+  background: linear-gradient(to top, #242877, #2b308f, #3239a9, #3a41c3, #424ADD);
+}
+
+.dropdown-menu {
+  font-size: 0.8rem;
+  border: none;
+  -moz-box-shadow: rgba(173, 173, 173, 0.14) 1px 2px 8px 0px, rgba(193, 193, 193, 0.15) 0 1px 1.8px 0px;
+  -webkit-box-shadow: rgba(173, 173, 173, 0.14) 1px 2px 8px 0px, rgba(193, 193, 193, 0.15) 0 1px 1.8px 0px;
+  box-shadow: rgba(173, 173, 173, 0.14) 1px 2px 8px 0px, rgba(193, 193, 193, 0.15) 0 1px 1.8px 0px;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  border-color: #1a2435;
+  background-color: #1a2435;
+}
+
+.custom-switch .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: #1a2435;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.btn-bluedark {
+  color: #ffffff;
+  background-color: #1a2435;
+}
+.btn-bluedark:hover {
+  background-color: #141b27;
+  color: white;
+}
+.btn-bluedark:focus {
+  background-color: #141b27;
+}
+
+.btn-bluelight {
+  color: #ffffff;
+  background-color: #2F4264;
+}
+.btn-bluelight:hover {
+  background-color: #141b27;
+  color: white;
+}
+.btn-bluelight:focus {
+  background-color: #141b27;
+}
+
+.btn-pastel-purpledark {
+  color: #ffffff;
+  background-color: #242877;
+}
+.btn-pastel-purpledark:hover {
+  background-color: #141b27;
+  color: white;
+}
+.btn-pastel-purpledark:focus {
+  background-color: #141b27;
+}
+
+.btn-pastel-purplelight {
+  color: #ffffff;
+  background-color: #424ADD;
+}
+.btn-pastel-purplelight:hover {
+  background-color: #141b27;
+  color: white;
+}
+.btn-pastel-purplelight:focus {
+  background-color: #141b27;
+}
+
+/*GENERAL */
+body {
+  font-size: 0.9rem;
+}
+
+a {
+  color: #1a2435;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/*FONT ICONS */
+.fa-th-large {
+  color: #1a2435;
+}
+
+/*PRINCIPAL SECTION*/
+/* TABLE */
+.table {
+  font-size: 0.8rem;
+}
+.table thead th {
+  border-top: none;
+  border-bottom: 1px;
+}
+.table td, .table th {
+  border-top: 1px solid #f3f3f3;
+}
+.table tbody td, .table tbody th {
+  color: #949494;
+}
+
+/*FORMS*/
+.form-control {
+  box-shadow: none;
+}
+
+/*ASIDE*/
+.sidebarInfo {
+  position: fixed;
+  top: 99.69px;
+  background-color: #f5f5f5;
+  min-width: 20rem;
+  max-width: 20rem;
+  height: calc(100vh - 99.69px);
+  right: -20rem;
+  z-index: 1;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.sidebarInfo .bs-aside-default {
+  -moz-box-shadow: rgba(208, 208, 208, 0.5) 0 2px 2px 0px;
+  -webkit-box-shadow: rgba(208, 208, 208, 0.5) 0 2px 2px 0px;
+  box-shadow: rgba(208, 208, 208, 0.5) 0 2px 2px 0px;
+}
+.sidebarInfo.active {
+  right: 0;
+}
+
+/*VIDEO MODAL*/
+.modalVideo .modal-content {
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+.modalVideo .modal-header {
+  border: 0;
+  text-align: right;
+}
+.modalVideo .modal-header .close {
+  text-shadow: none;
+  color: #ffffff;
+  font-weight: 400;
+  float: none;
+  padding: 1rem 0;
+  outline: none;
+  opacity: 1;
+}
+.modalVideo .modal-body {
+  padding: 0;
+}
+
+.modal-video-filter .modal-backdrop {
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 1;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+}
+
+/*LOGIN SECTION*/
+.wrapper__panel {
+  font-family: "Lato", sans-serif;
+}
+.wrapper__panel--left {
+  color: #dadada;
+}
+.wrapper__panel form .input__group {
+  position: relative;
+}
+.wrapper__panel form .input__group input::-webkit-input-placeholder {
+  opacity: 0;
+}
+.wrapper__panel form .input__group input::-moz-placeholder {
+  opacity: 0;
+}
+.wrapper__panel form .input__group input ::-ms-placeholder {
+  opacity: 0;
+}
+.wrapper__panel form .input__group input ::placeholder {
+  opacity: 0;
+}
+.wrapper__panel form .input__group input[type=text],
+.wrapper__panel form .input__group input[type=password] {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid #e4e4e4;
+  border-radius: 0;
+  padding: 0 15px;
+  padding-right: 35px;
+}
+.wrapper__panel form .input__group input[type=text]:focus,
+.wrapper__panel form .input__group input[type=password]:focus {
+  box-shadow: none;
+  border-bottom-color: #424ADD;
+}
+.wrapper__panel form .input__group input[type=text].error__ui,
+.wrapper__panel form .input__group input[type=password].error__ui {
+  border-bottom-color: #ec4d4d;
+}
+.wrapper__panel form .input__group input[type=text]:placeholder-shown label,
+.wrapper__panel form .input__group input[type=password]:placeholder-shown label {
+  left: 0;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.wrapper__panel form .input__group input[type=text]:not(:placeholder-shown) + label, .wrapper__panel form .input__group input[type=text]:focus + label,
+.wrapper__panel form .input__group input[type=password]:not(:placeholder-shown) + label,
+.wrapper__panel form .input__group input[type=password]:focus + label {
+  top: -12px;
+  font-size: 12px;
+}
+.wrapper__panel form .input__group input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 100px #fff inset;
+  -moz-box-shadow: 0 0 0 100px #fff inset;
+  box-shadow: 0 0 0 100px #fff inset;
+}
+.wrapper__panel form .input__group input[type=password] {
+  color: #424ADD;
+}
+.wrapper__panel form .input__group label, .wrapper__panel form .input__group svg {
+  position: absolute;
+  top: 8px;
+  line-height: 15px;
+  font-size: 15px;
+}
+.wrapper__panel form .input__group label {
+  margin-left: 15px;
+  color: #e4e4e4;
+  cursor: text;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.wrapper__panel form .input__group svg {
+  right: 0;
+  margin-right: 10px;
+  color: #424ADD;
+}
+.wrapper__panel form .input__group svg.error__ui {
+  color: #ec4d4d;
+}
+.wrapper__panel form .btn {
+  border-radius: 25px;
+}
+.wrapper__panel form .btn svg {
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.wrapper__panel form .btn:hover {
+  background-color: #242877;
+}
+.wrapper__panel form .btn:hover svg {
+  transform: translateX(20px);
+}
+
+/*MEDIA*/
+@media (max-width: 768px) {
+  .wrapper__panel--left__child {
+    flex-direction: column;
+  }
+  .wrapper__panel--left__child p {
+    display: none;
+  }
+}
+@media (max-width: 576px) {
+  .wrapper__panel--left__child {
+    flex-direction: row;
+  }
+  .wrapper__panel--left__child h2 {
+    font-size: 1.5rem;
+  }
+  .wrapper__panel--left__child img {
+    width: 150px;
+  }
+
+  .wrapper__panel--right__child {
+    width: 90% !important;
+  }
+  .wrapper__panel--right__child .btn {
+    display: block;
+    width: 100%;
+  }
+}
+.navbar-add {
+  top: 53.69px;
+}
+
+/*load*/
+.loader {
+  color: #21252c;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader, .loader:before, .loader:after {
+  background: #21252c;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader:before, .loader:after {
+  position: absolute;
+  top: 0;
+  content: "";
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+
+@-webkit-keyframes load1 {
+  0%, 80%, 100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%, 80%, 100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+#load {
+  background: rgba(39, 39, 39, 0.6);
+  position: fixed;
+  z-index: 10001;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+/*# sourceMappingURL=styles.css.map */

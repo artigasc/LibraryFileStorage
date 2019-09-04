@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+ 
+    <div class="container-fluid">
+        <div class="row min-vh-100 justify-content-center">
+            <div class="col-md-7 py-md-4 py-3 px-md-4 bg--gradient--purple wrapper__panel wrapper__panel--left">
+                <img src="~/images/logo.png" alt="logo" class="img-fluid" width="120" />
+                
+                <div class="d-flex align-items-start align-items-center wrapper__panel--left__child py-md-4 py-3">
+                    <div class="w-50">
+                        <h2 class="text-white pb-3">Biblioteca de Videos</h2>
+                        <p>
+                            Sube, administra y comparte tus archivos y videos prefieridos.
+                            Ingresa con tu cuenta y empieza a publicar! 
+                        </p>
+                    </div>
+                    <img src="~/images/undraw_post_online_dkuk.svg" width="330" class="img-fluid" alt="svg" />
+                </div>
+            </div>
+            <div class="col-md-5 d-flex justify-content-center align-items-center wrapper__panel">
+                <div class="w-75 wrapper__panel--right__child py-4">
+                    <h4 class="mb-4 text-center text-md-left">Ingresa tus datos</h4>
+                    <form method="post">
+                        <div class="mb-4 input__group">
+                            <input id="UserName" type="text" class="form-control js__input__ui" placeholder="usuario"  autofocus/>
+                            <label for="User">Nombre de usuario</label>
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="mb-4 input__group">
+                            <input id="Password" type="password" maxlength="15" class="form-control js__input__ui" placeholder="contraseña" />
+                            <label for="Password">Contraseña</label>
+                            <i class="fas fa-unlock"></i>
+                        </div>
+                        <button type="button" onclick="VerifyUser()" class="btn btn-pastel-purplelight px-5 py-2">Ingresar <i class="fas fa-arrow-right fa-xs ml-2"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<script>
+    function VerifyUser() {
+            
+            var model = {
+                UserName: $('#UserName').val().trim(),
+                Password: $('#Password').val().trim()
+        };
+        console.log(model)
+            $.ajax({
+                url: "/Account/Login",
+                method: "POST",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                contentType: 'application/json',
+                async: true,
+                success: function (response) {
+                    if (response.content == "3") {
+                        alert("Usuario o contraseña incorrectos");
+                    }
+                    if (response.content == "1") {
+                        window.location.href = '@Url.Action("Index", "Home")';
+
+                    }
+                   
+
+                },
+                beforeSend: function () {
+                    $("body").fadeIn(function () {
+                        $(".modaldisplay").show();
+                    });
+                },
+                complete: function () {
+                    $(".modaldisplay").hide();
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                    console.log(xhr.status + ": " + xhr.responseText);
+
+                }
+            });
+    }
+</script>

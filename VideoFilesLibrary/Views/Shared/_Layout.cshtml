@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/styles.css" />
+        <link href="~/lib/css/perfect-scrollbar.css" rel="stylesheet" />
+        <script src="~/fonts/all.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    </environment>
+    <environment exclude="Development">
+
+        <link rel="stylesheet" href="~/lib/css/bootstrap.css" />
+        <link href="~/lib/css/perfect-scrollbar.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/css/styles.css" />
+        <script src="~/fonts/all.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    </environment>
+    <title>@ViewData["Title"] - VideoFilesLibrary</title>
+
+</head>
+<body>
+
+
+    <partial name="_CookieConsentPartial" />
+
+
+
+
+    <environment include="Development">
+        <script src="~/lib/js/jquery-3.3.1.min.js"></script>
+        <script src="~/lib/js/perfect-scrollbar.min.js"></script>
+
+        <script src="~/lib/js/popper.js"></script>
+        <script src="~/lib/js/bootstrap.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib/js/jquery-3.3.1.min.js"></script>
+        <script src="~/lib/js/perfect-scrollbar.min.js"></script>
+
+        <script src="~/lib/js/popper.js"></script>
+        <script src="~/lib/js/bootstrap.min.js"></script>
+
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </environment>
+    @RenderBody()
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

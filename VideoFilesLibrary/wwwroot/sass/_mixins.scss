@@ -1,0 +1,29 @@
+﻿@mixin transtion($stranstion) {
+    -moz-transition: all $stranstion ease;
+    -o-transition: all $stranstion ease;
+    -webkit-transition: all $stranstion ease;
+    transition: all $stranstion ease;
+}
+@mixin box-shadow-nd($color-start,$valor-start, $color-end, $valor-end) {
+    -moz-box-shadow: $color-start $valor-start, $color-end $valor-end;
+    -webkit-box-shadow: $color-start $valor-start, $color-end $valor-end;
+    box-shadow: $color-start $valor-start, $color-end $valor-end;
+}
+@mixin box-shadow-st($color-start, $valor-start) {
+    -moz-box-shadow: $valor-start $color-start;
+    -webkit-box-shadow: $valor-start $color-start;
+    box-shadow: $valor-start $color-start;
+}
+@mixin gradient($from, $to, $orientartion) {
+    background: $from;
+    background: -moz-linear-gradient($orientartion, $from, $to);
+    background: -webkit-linear-gradient($orientartion, $from, $to);
+    background: linear-gradient($orientartion, $from, $to)
+}
+@mixin gradient-a($orientation, $first, $second, $third, $fourth, $fifth) {
+    background: $first;
+    background: -moz-linear-gradient($orientation, $first, $second, $third, $fourth, $fifth);
+    background: -webkit-linear-gradient($orientation, $first, $second, $third, $fourth, $fifth);
+    background: linear-gradient($orientation, $first, $second, $third, $fourth, $fifth);
+    
+}

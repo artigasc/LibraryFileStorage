@@ -1,0 +1,165 @@
+﻿@model List<VideoFilesLibrary.Models.FileViewModel>
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="listView" role="tabpanel">
+        <!-- Default view - List -->
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Modificado</th>
+                        <th scope="col">Tamaño</th>
+                        <th scope="col">¿Compartido?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if (Model != null && Model.Count() > 0) {
+                            foreach (FileViewModel vItem in Model) {
+                                string vTarget = "#id" + vItem.Id;
+                                <tr>
+
+                                    <td class="text-center" scope="row" style="width:5%">
+                                        @if (!vItem.IsFolder) {
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input id="@vItem.Id" type="checkbox" class="custom-control-input chk" url="@vItem.Url" folder="@vItem.IsFolder.ToString()" />
+                                                <label for="@vItem.Id" class="custom-control-label"></label>
+                                            </div>
+
+                                        }
+                                    </td>
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="@vTarget">
+                                            <i class="@vItem.Icon mx-2"></i>
+                                            <span>@vItem.VisualName</span>
+                                        </a>
+                                    </td>
+                                    <td>@vItem.DateCreate.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                                    <td>@vItem.SizeMB MB</td>
+                                    <td>
+                                        @if (vItem.IsShared == 1) {
+                                            <div class="custom-control custom-switch">
+                                                <input id="IdFile" class="custom-control-input" type="checkbox" disabled checked />
+                                                <label class="custom-control-label" for="IdFik"></label>
+                                            </div>
+                                        } else if (vItem.IsShared == 0) {
+                                            <div class="custom-control custom-switch">
+                                                <input id="IdFile" class="custom-control-input" type="checkbox" disabled />
+                                                <label class="custom-control-label" for="IdFik"></label>
+                                            </div>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- end list -->
+    </div>
+
+    <div id="gridView" class="tab-pane fade" role="tabpanel">
+        <!-- Seconday view  - grid-->
+        <div class="row">
+            <!--Card Folder -->
+            @{
+                if (Model != null && Model.Count() > 0) {
+                    foreach (FileViewModel vItem in Model) {
+                        string vTarget = "#id" + vItem.Id;
+                        @if (vItem.IsFolder) {
+                            <div class="col-md-2 my-2">
+                                <div class="card text-center py-4">
+                                    <a class="stretched-link" href="#"><h1><i class="fas fa-folder-open fa-lg"></i></h1></a>
+                                    <p class="m-0">@vItem.VisualName</p>
+                                </div>
+                            </div>
+                        }else{
+                            <div class="col-md-2 my-2">
+                                <div class="card text-center py-4 px-2">
+                                    <a class="stretched-link" data-toggle="modal" data-target="@vTarget" href="#">
+                                        <h1><i class="fas fa-play-circle fa-lg"></i></h1>
+                                        <p class="overflow-hidden m-0" style="text-overflow: ellipsis;white-space: nowrap;vertical-align: top">@vItem.VisualName</p>
+                                    </a>
+
+                                </div>
+                            </div>
+                            }
+                }
+                }
+            }
+
+
+        </div>
+        <!-- end grid -->
+    </div>
+</div>
+@{
+    if (Model != null && Model.Count() > 0) {
+        foreach (FileViewModel vItem in Model) {
+            if (!vItem.IsFolder) {
+                string vTarget = "id" + vItem.Id;
+                <div class="modal fade modalVideo" id="@vTarget" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="text-white text-left">@vItem.VisualName</h6>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"> &times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="embed-responsive embed-responsive-21by9">
+                                    <video width="100" controls>
+                                        <source src="@vItem.Url" >
+                                    </video>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+
+<script>
+
+    $('.chk').change(function () {
+        $('#DataFiles').val("");
+        var vJsonFiles = [];
+        var vTotalCategoriesChecked = 0;
+        $(".chk:checked").each(function () {
+            vTotalCategoriesChecked++;
+            vJsonFiles.push({ id: $(this).attr('id'), isfolder: $(this).attr('folder'), url: $(this).attr('url') });
+        });
+        if (vJsonFiles.length > 0) {
+            $('#DataFiles').val(JSON.stringify(vJsonFiles));
+        }
+        if (vTotalCategoriesChecked > 0) {
+            $('.datanav').removeClass('d-none');
+        } else {
+            $('.datanav').addClass('d-none');
+        }
+    });
+
+
+    $('.modalVideo').on('hidden.bs.modal', function () {
+        $('video').each(function (index) {
+            $(this)[0].pause();
+        });
+    });
+    $(".modalVideo").on('shown.bs.modal', function (e) {
+        $('body').addClass('modal-video-filter');
+    }).on('hide.bs.modal', function (e) {
+        $('body').removeClass('modal-video-filter');
+    });
+
+</script>
+
+
+
